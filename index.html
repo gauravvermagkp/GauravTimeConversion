@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IST ↔ EST Time Converter</title>
+  <style>
+    :root {
+      --bg: #eef4ff;
+      --card: #ffffff;
+      --border: #d6e2ff;
+      --text: #0f1c3f;
+      --muted: #6b7a99;
+      --accent: #3b82f6;
+      --accent-light: #e3edff;
+      --radius: 14px;
+      --ist-accent: #06b6d4;
+      /* teal */
+      --est-accent: #ef4444;
+      /* red */
+      --syd-accent: #06b64f;
+      /* green */
+      --ber-accent: #7c3aed;
+      /* purple */
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial;
+      background: linear-gradient(180deg, #eef4ff 0%, #dae7ff 100%);
+      color: var(--text);
+      padding: 32px 18px;
+    }
+
+    h1 {
+      margin: 0 0 20px 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #143370;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 26px;
+      box-shadow: 0 6px 18px rgba(30, 64, 175, 0.08);
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #1e3a8a;
+    }
+
+    .label {
+      margin: 14px 0 6px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    input[type="datetime-local"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 15px;
+      background: var(--accent-light);
+      outline: none;
+    }
+
+    input[type="datetime-local"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 6px rgba(59, 130, 246, 0.45);
+      background: white;
+    }
+
+    .result {
+      display: inline-block;
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      color: #1e40af;
+      background: var(--accent-light);
+      padding: 8px 14px;
+      border-radius: 10px;
+    }
+
+    strong {
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+
+    /* --- Live time enhanced styles --- */
+    .live-list {
+      display: flex;
+      gap: 14px;
+      margin-top: 12px;
+      flex-wrap: wrap
+    }
+
+    .live-item {
+      flex: 1 1 220px;
+      padding: 14px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #fff, var(--accent-light));
+      border: 1px solid rgba(15, 23, 42, 0.03);
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.03);
+    }
+
+    .live-item .label-row {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .tz {
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--text)
+    }
+
+    .sub {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .live-value {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: 800
+    }
+
+    /* colored accents */
+    .ist-item {
+      border-left: 6px solid var(--ist-accent)
+    }
+
+    .est-item {
+      border-left: 6px solid var(--est-accent)
+    }
+
+    .syd-item {
+      border-left: 6px solid var(--syd-accent)
+    }
+
+    .ber-item {
+      border-left: 6px solid var(--ber-accent)
+    }
+
+    /* prominent EST result styling */
+    .prominent {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .prominent .est-box {
+      background: linear-gradient(90deg, #fff2f2, #fff);
+      border: 1px solid rgba(239, 68, 68, 0.12);
+      padding: 18px 22px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(239, 68, 68, 0.06);
+    }
+
+    .prominent .est-box .label {
+      color: #b91c1c;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .prominent .est-box .big {
+      font-size: 28px;
+      font-weight: 900;
+      color: #7f1d1d;
+      margin-top: 8px;
+    }
+
+    .prominent .others {
+      display: flex;
+      gap: 10px;
+      flex-direction: column
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent-light);
+      font-weight: 700;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* small responsive tweak */
+    @media (max-width:720px) {
+      .prominent {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>IST ↔ EST Time Converter</h1>
+
+  <div class="card">
+    <h3>Live Time</h3>
+
+    <!-- Prominent EST live box + IST highlighted chip + other small chips -->
+    <div class="prominent">
+      <div class="est-box">
+        <div class="label">Primary Live — EST</div>
+        <div id="liveEST" class="big">--</div>
+        <div class="sub" style="margin-top:6px">America/New_York</div>
+      </div>
+
+      <div class="others">
+        <div class="chip">IST: <span id="liveIST">--</span></div>
+        <div class="chip">Sydney: <span id="liveSYD">--</span></div>
+        <div class="chip">Berlin: <span id="liveBER">--</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Convert IST → Other Zones</h3> → Other Zones</h3>
+    <div class="label">Choose Date & Time (IST):</div>
+    <input id="istInput" type="datetime-local" onchange="convertFromIST()" />
+
+    <!-- Prominent EST box on left, smaller chips for other zones on right -->
+    <div class="prominent">
+      <div class="est-box">
+        <div class="label">Primary — IST → EST</div>
+        <div id="convertedEST" class="big">--</div>
+        <div class="sub" style="margin-top:6px">America/New_York</div>
+      </div>
+
+      <div class="others">
+        <div class="chip">Sydney: <span id="convertedSYD">--</span></div>
+        <div class="chip">Berlin: <span id="convertedBER">--</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px; color:var(--muted); font-size:13px">Note: EST conversion is highlighted as primary.
+      Other zones are shown as secondary.</div>
+  </div>
+  </div>
+
+  <script>
+    function fmt(date, timeZone, opts) {
+      opts = Object.assign({ year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }, opts || {});
+      return new Date(date).toLocaleString('en-US', Object.assign({}, opts, { timeZone }));
+    }
+
+    function updateLiveClock() {
+      const now = new Date();
+
+      const istDate = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+      const estDate = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+      const sydDate = new Date(now.toLocaleString('en-US', { timeZone: 'Australia/Sydney' }));
+      const berDate = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+
+      document.getElementById('liveIST').innerText = istDate.toLocaleString('en-IN', { hour12: true });
+      document.getElementById('liveEST').innerText = estDate.toLocaleString('en-GB', { hour12: true });
+      document.getElementById('liveSYD').innerText = sydDate.toLocaleString('en-AU', { hour12: true });
+      document.getElementById('liveBER').innerText = berDate.toLocaleString('en-GB', { hour12: true });
+    }
+    setInterval(updateLiveClock, 1000);
+    updateLiveClock();
+
+    function convertFromIST() {
+      const val = document.getElementById('istInput').value;
+      if (!val) {
+        document.getElementById('convertedEST').innerText = estDate.toLocaleString('en-GB', { hour12: true });
+        document.getElementById('convertedSYD').innerText = '--';
+        document.getElementById('convertedBER').innerText = '--';
+        return;
+      }
+
+      // Build IST date from input (treat input as local IST time)
+      const istDate = new Date(val.replace('T', ' ') + ' GMT+0530');
+
+      const estDate = new Date(istDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+      const sydDate = new Date(istDate.toLocaleString('en-US', { timeZone: 'Australia/Sydney' }));
+      const berDate = new Date(istDate.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+
+      document.getElementById('convertedEST').innerText = estDate.toLocaleString('en-US', { hour12: true });
+      document.getElementById('convertedSYD').innerText = sydDate.toLocaleString('en-AU', { hour12: true });
+      document.getElementById('convertedBER').innerText = berDate.toLocaleString('en-GB', { hour12: true });
+    }
+  </script>
+</body>
+
+</html>
