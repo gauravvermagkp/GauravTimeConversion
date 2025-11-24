@@ -41,7 +41,7 @@
       margin: 0 0 20px 0;
       font-size: 28px;
       font-weight: 700;
-      color: #143370;
+      color: #143370
     }
 
     .card {
@@ -50,19 +50,27 @@
       border-radius: var(--radius);
       padding: 24px;
       margin-bottom: 26px;
-      box-shadow: 0 6px 18px rgba(30, 64, 175, 0.08);
+      box-shadow: 0 6px 18px rgba(30, 64, 175, 0.08)
     }
 
     h3 {
       margin-top: 0;
       font-size: 18px;
-      color: #1e3a8a;
+      color: #1e3a8a
     }
 
     .label {
       margin: 14px 0 6px;
       font-size: 14px;
-      color: var(--muted);
+      color: var(--muted)
+    }
+
+    select {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--accent-light);
+      font-size: 15px
     }
 
     input[type="datetime-local"] {
@@ -72,13 +80,13 @@
       border: 1px solid var(--border);
       font-size: 15px;
       background: var(--accent-light);
-      outline: none;
+      outline: none
     }
 
     input[type="datetime-local"]:focus {
       border-color: var(--accent);
       box-shadow: 0 0 6px rgba(59, 130, 246, 0.45);
-      background: white;
+      background: white
     }
 
     .result {
@@ -89,15 +97,15 @@
       color: #1e40af;
       background: var(--accent-light);
       padding: 8px 14px;
-      border-radius: 10px;
+      border-radius: 10px
     }
 
     strong {
       font-weight: 700;
-      color: #1e3a8a;
+      color: #1e3a8a
     }
 
-    /* --- Live time enhanced styles --- */
+    /* Live list styles */
     .live-list {
       display: flex;
       gap: 14px;
@@ -111,7 +119,7 @@
       border-radius: 10px;
       background: linear-gradient(180deg, #fff, var(--accent-light));
       border: 1px solid rgba(15, 23, 42, 0.03);
-      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.03);
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.03)
     }
 
     .live-item .label-row {
@@ -137,7 +145,7 @@
       font-weight: 800
     }
 
-    /* colored accents */
+    /* accents */
     .ist-item {
       border-left: 6px solid var(--ist-accent)
     }
@@ -154,56 +162,148 @@
       border-left: 6px solid var(--ber-accent)
     }
 
-    /* prominent EST result styling */
+    /* prominent EST styling (stable width to avoid flicker) */
     .prominent {
       display: flex;
       gap: 16px;
-      align-items: center;
-      margin-top: 14px;
+      align-items: flex-start;
+      margin-top: 14px
     }
 
-    .prominent .est-box {
+    .est-box {
+      flex: 0 0 420px;
+      min-width: 260px;
       background: linear-gradient(90deg, #fff2f2, #fff);
       border: 1px solid rgba(239, 68, 68, 0.12);
       padding: 18px 22px;
       border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(239, 68, 68, 0.06);
+      box-shadow: 0 8px 30px rgba(239, 68, 68, 0.06)
     }
 
-    .prominent .est-box .label {
+    .est-box .label {
       color: #b91c1c;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 14px
     }
 
-    .prominent .est-box .big {
+    .est-box .big {
       font-size: 28px;
       font-weight: 900;
       color: #7f1d1d;
       margin-top: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
     }
 
     .prominent .others {
       display: flex;
       gap: 10px;
-      flex-direction: column
+      flex-direction: column;
+      flex: 1 1 auto
     }
 
-    .chip {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: var(--accent-light);
-      font-weight: 700;
+    /* zone table styles replace chips for improved readability */
+    .zone-table {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .zone-row {
+      display: grid;
+      grid-template-columns: 1fr auto 40px;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #fff, var(--accent-light));
+      border: 1px solid rgba(15, 23, 42, 0.03);
+      box-shadow: 0 4px 12px rgba(2, 6, 23, 0.03)
+    }
+
+    .zone-row+.zone-row {
+      margin-top: 4px
+    }
+
+    .zone-name {
+      font-weight: 800;
       color: var(--text);
-      border: 1px solid var(--border);
+      font-size: 15px
     }
 
-    /* small responsive tweak */
-    @media (max-width:720px) {
+    .zone-value {
+      font-weight: 700;
+      color: #1e40af;
+      font-size: 15px;
+      text-align: right
+    }
+
+    /* zebra stripes */
+    .zone-table .zone-row:nth-child(even) {
+      background: linear-gradient(180deg, #fbfdff, var(--accent-light));
+    }
+
+    .zone-row[data-zone="apac"] {
+      border-left: 6px solid var(--syd-accent)
+    }
+
+    .zone-row[data-zone="emea"] {
+      border-left: 6px solid var(--ber-accent)
+    }
+
+    .zone-row[data-zone="clar"] {
+      border-left: 6px solid var(--est-accent)
+    }
+
+    .ctrls {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end
+    }
+
+    .ctrls button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px
+    }
+
+    .ctrls button:hover {
+      background: rgba(0, 0, 0, 0.04)
+    }
+
+    /* responsive compact view for small screens */
+    .compact-hide {
+      display: none
+    }
+
+    @media (max-width:900px) {
       .prominent {
-        flex-direction: column;
-        align-items: flex-start
+        flex-direction: column
       }
+
+      .est-box {
+        flex: 0 0 auto;
+        width: 100%;
+        min-width: 0
+      }
+
+      .prominent .others {
+        flex-direction: row;
+        flex-wrap: wrap
+      }
+
+      .chip {
+        min-width: 120px
+      }
+    }
+
+    .slide-anim {
+      transition: transform 0.28s ease, opacity 0.28s ease;
+      transform: translateY(-6px);
+      opacity: 0.98
     }
   </style>
 </head>
@@ -214,64 +314,288 @@
   <div class="card">
     <h3>Live Time</h3>
 
-    <!-- Prominent EST live box + IST highlighted chip + other small chips -->
+    <div style="display:flex; gap:14px; align-items:center;">
+      <div style="flex:0 0 260px; display:flex; gap:8px; align-items:center;">
+        <div style="min-width:140px;">
+          <label class="label">Show group:</label>
+          <select id="groupSelect" onchange="applyGroup()">
+            <option value="all">All</option>
+            <option value="apac">APAC</option>
+            <option value="emea">EMEA</option>
+            <option value="clar">CLAR</option>
+          </select>
+        </div>
+      </div>
+      <div style="flex:1"></div>
+    </div>
+
     <div class="prominent">
-      <div class="est-box">
+      <div class="est-box" id="liveEstBox">
         <div class="label">Primary Live — EST</div>
         <div id="liveEST" class="big">--</div>
         <div class="sub" style="margin-top:6px">America/New_York</div>
       </div>
 
-      <div class="others">
-        <div class="chip">IST: <span id="liveIST">--</span></div>
-        <div class="chip">Sydney: <span id="liveSYD">--</span></div>
-        <div class="chip">Berlin: <span id="liveBER">--</span></div>
+      <div class="others" id="liveChips">
+        <div class="zone-table" id="liveTable">
+
+          <div class="zone-row" data-zone="all" data-key="IST">
+            <div class="zone-name">India</div>
+            <div class="zone-value" id="liveIST">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('IST', -1)">▲</button><button title="Move down"
+                onclick="moveZone('IST', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="BER">
+            <div class="zone-name">Belgium (Europe/Berlin)</div>
+            <div class="zone-value" id="liveBER">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('BER', -1)">▲</button><button title="Move down"
+                onclick="moveZone('BER', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="AFR">
+            <div class="zone-name">Africa (Africa/Johannesburg)</div>
+            <div class="zone-value" id="liveAFR">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('AFR', -1)">▲</button><button title="Move down"
+                onclick="moveZone('AFR', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="FRA">
+            <div class="zone-name">France (Europe/Berlin)</div>
+            <div class="zone-value" id="liveFRA">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('FRA', -1)">▲</button><button title="Move down"
+                onclick="moveZone('FRA', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="DEU">
+            <div class="zone-name">Germany (Europe/Berlin)</div>
+            <div class="zone-value" id="liveDEU">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('DEU', -1)">▲</button><button title="Move down"
+                onclick="moveZone('DEU', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="BRA">
+            <div class="zone-name">Brazil (Brazil/East)</div>
+            <div class="zone-value" id="liveBRA">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('BRA', -1)">▲</button><button title="Move down"
+                onclick="moveZone('BRA', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="clar" data-key="CAN">
+            <div class="zone-name">Canada (America/Toronto)</div>
+            <div class="zone-value" id="liveCAN">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('CAN', -1)">▲</button><button title="Move down"
+                onclick="moveZone('CAN', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="clar" data-key="MEX">
+            <div class="zone-name">Mexico (America/Mexico_City)</div>
+            <div class="zone-value" id="liveMEX">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('MEX', -1)">▲</button><button title="Move down"
+                onclick="moveZone('MEX', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="NLD">
+            <div class="zone-name">Netherland (Europe/Berlin)</div>
+            <div class="zone-value" id="liveNLD">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('NLD', -1)">▲</button><button title="Move down"
+                onclick="moveZone('NLd', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="POL">
+            <div class="zone-name">Poland (Europe/Warsaw)</div>
+            <div class="zone-value" id="livePOL">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('POL', -1)">▲</button><button title="Move down"
+                onclick="moveZone('POL', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="ESP">
+            <div class="zone-name">Spain (Europe/Berlin)</div>
+            <div class="zone-value" id="liveESP">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('ESP', -1)">▲</button><button title="Move down"
+                onclick="moveZone('ESP', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="CHE">
+            <div class="zone-name">Switzerland (Europe/Berlin)</div>
+            <div class="zone-value" id="liveCHE">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('CHE', -1)">▲</button><button title="Move down"
+                onclick="moveZone('CHE', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="apac" data-key="THA">
+            <div class="zone-name">Thailand (Asia/Bangkok)</div>
+            <div class="zone-value" id="liveTHA">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('THA', -1)">▲</button><button title="Move down"
+                onclick="moveZone('THA', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="apac" data-key="JPN">
+            <div class="zone-name">Japan (Japan)</div>
+            <div class="zone-value" id="liveJPN">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('JPN', -1)">▲</button><button title="Move down"
+                onclick="moveZone('JPN', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="apac" data-key="SYD">
+            <div class="zone-name">Australia (Australia/Sydney)</div>
+            <div class="zone-value" id="liveSYD">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('SYD', -1)">▲</button><button title="Move down"
+                onclick="moveZone('SYD', 1)">▼</button></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="card">
-    <h3>Convert IST → Other Zones</h3> → Other Zones</h3>
+    <h3>Convert IST → Other Zones</h3>
     <div class="label">Choose Date & Time (IST):</div>
     <input id="istInput" type="datetime-local" onchange="convertFromIST()" />
 
-    <!-- Prominent EST box on left, smaller chips for other zones on right -->
     <div class="prominent">
-      <div class="est-box">
+      <div class="est-box" id="convEstBox">
         <div class="label">Primary — IST → EST</div>
         <div id="convertedEST" class="big">--</div>
         <div class="sub" style="margin-top:6px">America/New_York</div>
       </div>
 
-      <div class="others">
-        <div class="chip">Sydney: <span id="convertedSYD">--</span></div>
-        <div class="chip">Berlin: <span id="convertedBER">--</span></div>
+      <div class="others" id="convertedChips">
+        <div class="zone-table" id="convTable">
+          <div class="zone-row" data-zone="all" data-key="IST">
+            <div class="zone-name">India</div>
+            <div class="zone-value" id="convertedIST">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('IST', -1)">▲</button><button title="Move down"
+                onclick="moveZone('IST', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="BER">
+            <div class="zone-name">Belgium (Europe/Berlin)</div>
+            <div class="zone-value" id="convertedBER">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('BER', -1)">▲</button><button title="Move down"
+                onclick="moveZone('BER', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="AFR">
+            <div class="zone-name">Africa (Africa/Johannesburg)</div>
+            <div class="zone-value" id="convertedAFR">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('AFR', -1)">▲</button><button title="Move down"
+                onclick="moveZone('AFR', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="FRA">
+            <div class="zone-name">France (Europe/Berlin)</div>
+            <div class="zone-value" id="convertedFRA">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('FRA', -1)">▲</button><button title="Move down"
+                onclick="moveZone('FRA', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="DEU">
+            <div class="zone-name">Germany (Europe/Berlin)</div>
+            <div class="zone-value" id="convertedDEU">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('DEU', -1)">▲</button><button title="Move down"
+                onclick="moveZone('DEU', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="BRA">
+            <div class="zone-name">Brazil (Brazil/East)</div>
+            <div class="zone-value" id="convertedBRA">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('BRA', -1)">▲</button><button title="Move down"
+                onclick="moveZone('BRA', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="clar" data-key="CAN">
+            <div class="zone-name">Canada (America/Toronto)</div>
+            <div class="zone-value" id="convertedCAN">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('CAN', -1)">▲</button><button title="Move down"
+                onclick="moveZone('CAN', 1)">▼</button></div>
+          </div>
+
+          <div class="zone-row" data-zone="clar" data-key="MEX">
+            <div class="zone-name">Mexico (America/Mexico_City)</div>
+            <div class="zone-value" id="convertedMEX">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('MEX', -1)">▲</button><button title="Move down"
+                onclick="moveZone('MEX', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="NLD">
+            <div class="zone-name">Netherland (Europe/Berlin)</div>
+            <div class="zone-value" id="convertedNLD">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('NLD', -1)">▲</button><button title="Move down"
+                onclick="moveZone('NLd', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="POL">
+            <div class="zone-name">Poland (Europe/Warsaw)</div>
+            <div class="zone-value" id="convertedPOL">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('POL', -1)">▲</button><button title="Move down"
+                onclick="moveZone('POL', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="ESP">
+            <div class="zone-name">Spain (Europe/Berlin)</div>
+            <div class="zone-value" id="convertedESP">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('ESP', -1)">▲</button><button title="Move down"
+                onclick="moveZone('ESP', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="emea" data-key="CHE">
+            <div class="zone-name">Switzerland (Europe/Berlin)</div>
+            <div class="zone-value" id="convertedCHE">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('CHE', -1)">▲</button><button title="Move down"
+                onclick="moveZone('CHE', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="apac" data-key="THA">
+            <div class="zone-name">Thailand (Asia/Bangkok)</div>
+            <div class="zone-value" id="convertedTHA">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('THA', -1)">▲</button><button title="Move down"
+                onclick="moveZone('THA', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="apac" data-key="JPN">
+            <div class="zone-name">Japan (Japan)</div>
+            <div class="zone-value" id="convertedJPN">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('JPN', -1)">▲</button><button title="Move down"
+                onclick="moveZone('JPN', 1)">▼</button></div>
+          </div>
+          <div class="zone-row" data-zone="apac" data-key="SYD">
+            <div class="zone-name">Australia (Australia/Sydney)</div>
+            <div class="zone-value" id="convertedSYD">--</div>
+            <div class="ctrls"><button title="Move up" onclick="moveZone('SYD', -1)">▲</button><button title="Move down"
+                onclick="moveZone('SYD', 1)">▼</button></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div style="margin-top:12px; color:var(--muted); font-size:13px">Note: EST conversion is highlighted as primary.
-      Other zones are shown as secondary.</div>
-  </div>
+    <div style="margin-top:12px; color:var(--muted); font-size:13px">Note: choose a group to filter which secondary
+      zones are visible. Use arrows to reorder rows; order is local to UI session.</div>
   </div>
 
   <script>
-    function fmt(date, timeZone, opts) {
-      opts = Object.assign({ year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }, opts || {});
-      return new Date(date).toLocaleString('en-US', Object.assign({}, opts, { timeZone }));
+    // Groups mapping: which data-zone values belong to each group
+    const GROUPS = {
+      all: ['all', 'apac', 'emea', 'clar'],
+      apac: ['apac'],
+      emea: ['emea'],
+      clar: ['clar']
+    };
+
+    // Robust formatter: accepts a Date object and a timezone string and returns formatted DD/MM/YYYY, hh:mm:ss am/pm
+    function fmtForZone(dateObj, timeZone) {
+      const opts = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, timeZone };
+      return dateObj.toLocaleString('en-GB', opts);
+    }
+
+    // Build a Date (UTC-based) from an input like "YYYY-MM-DDTHH:MM" treated as IST (UTC+5:30)
+    function buildDateFromISTInput(val) {
+      const parts = val.split('T');
+      if (parts.length !== 2) return null;
+      const [y, m, d] = parts[0].split('-').map(Number);
+      const [hh, mm] = parts[1].split(':').map(Number);
+      if ([y, m, d, hh, mm].some(v => Number.isNaN(v))) return null;
+
+      const localUtcMillis = Date.UTC(y, m - 1, d, hh, mm, 0);
+      const istOffsetMs = 5.5 * 3600 * 1000; // IST = UTC+5:30
+      const utcMillis = localUtcMillis - istOffsetMs;
+      return new Date(utcMillis);
     }
 
     function updateLiveClock() {
       const now = new Date();
 
-      const istDate = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
-      const estDate = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-      const sydDate = new Date(now.toLocaleString('en-US', { timeZone: 'Australia/Sydney' }));
-      const berDate = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+      document.getElementById('liveEST').innerText = fmtForZone(now, 'America/New_York');
+      document.getElementById('liveIST').innerText = fmtForZone(now, 'Asia/Kolkata');
+      document.getElementById('liveSYD').innerText = fmtForZone(now, 'Australia/Sydney');
+      document.getElementById('liveBER').innerText = fmtForZone(now, 'Europe/Berlin');
+      document.getElementById('liveAFR').innerText = fmtForZone(now, 'Africa/Johannesburg');
+      document.getElementById('liveBRA').innerText = fmtForZone(now, 'Brazil/East');
+      document.getElementById('liveCAN').innerText = fmtForZone(now, 'America/Toronto');
+      document.getElementById('liveFRA').innerText = fmtForZone(now, 'Europe/Berlin');
+      document.getElementById('liveDEU').innerText = fmtForZone(now, 'Europe/Berlin');
+      document.getElementById('liveJPN').innerText = fmtForZone(now, 'Japan');
+      document.getElementById('liveMEX').innerText = fmtForZone(now, 'America/Mexico_City');
+      document.getElementById('liveNLD').innerText = fmtForZone(now, 'Europe/Berlin');
+      document.getElementById('livePOL').innerText = fmtForZone(now, 'Europe/Warsaw');
+      document.getElementById('liveESP').innerText = fmtForZone(now, 'Europe/Berlin');
+      document.getElementById('liveCHE').innerText = fmtForZone(now, 'Europe/Berlin');
+      document.getElementById('liveTHA').innerText = fmtForZone(now, 'Asia/Bangkok');
 
-      document.getElementById('liveIST').innerText = istDate.toLocaleString('en-IN', { hour12: true });
-      document.getElementById('liveEST').innerText = estDate.toLocaleString('en-GB', { hour12: true });
-      document.getElementById('liveSYD').innerText = sydDate.toLocaleString('en-AU', { hour12: true });
-      document.getElementById('liveBER').innerText = berDate.toLocaleString('en-GB', { hour12: true });
     }
     setInterval(updateLiveClock, 1000);
     updateLiveClock();
@@ -279,23 +603,145 @@
     function convertFromIST() {
       const val = document.getElementById('istInput').value;
       if (!val) {
-        document.getElementById('convertedEST').innerText = estDate.toLocaleString('en-GB', { hour12: true });
+        document.getElementById('convertedEST').innerText = '--';
         document.getElementById('convertedSYD').innerText = '--';
+        document.getElementById('convertedIST').innerText = '--';
         document.getElementById('convertedBER').innerText = '--';
+        document.getElementById('convertedAFR').innerText = '--';
+        document.getElementById('convertedBRA').innerText = '--';
+        document.getElementById('convertedCAN').innerText = '--';
+        document.getElementById('convertedFRA').innerText = '--';
+        document.getElementById('convertedDEU').innerText = '--';
+        document.getElementById('convertedJPN').innerText = '--';
+        document.getElementById('convertedMEX').innerText = '--';
+        document.getElementById('convertedPOL').innerText = '--';
+        document.getElementById('convertedESP').innerText = '--';
+        document.getElementById('convertedCHE').innerText = '--';
+        document.getElementById('convertedTHA').innerText = '--';
+
         return;
       }
 
-      // Build IST date from input (treat input as local IST time)
-      const istDate = new Date(val.replace('T', ' ') + ' GMT+0530');
+      const istDateObj = buildDateFromISTInput(val);
+      if (!istDateObj || isNaN(istDateObj.getTime())) {
+        document.getElementById('convertedEST').innerText = 'Invalid Date';
+        document.getElementById('convertedSYD').innerText = 'Invalid Date';
+        document.getElementById('convertedIST').innerText = 'Invalid Date';
+        document.getElementById('convertedBER').innerText = 'Invalid Date';
+        document.getElementById('convertedAFR').innerText = 'Invalid Date';
+        document.getElementById('convertedBRA').innerText = 'Invalid Date';
+        document.getElementById('convertedCAN').innerText = 'Invalid Date';
+        document.getElementById('convertedFRA').innerText = 'Invalid Date';
+        document.getElementById('convertedDEU').innerText = 'Invalid Date';
+        document.getElementById('convertedJPN').innerText = 'Invalid Date';
+        document.getElementById('convertedMEX').innerText = 'Invalid Date';
+        document.getElementById('convertedNLD').innerText = 'Invalid Date';
+        return;
+      }
 
-      const estDate = new Date(istDate.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-      const sydDate = new Date(istDate.toLocaleString('en-US', { timeZone: 'Australia/Sydney' }));
-      const berDate = new Date(istDate.toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
-
-      document.getElementById('convertedEST').innerText = estDate.toLocaleString('en-US', { hour12: true });
-      document.getElementById('convertedSYD').innerText = sydDate.toLocaleString('en-AU', { hour12: true });
-      document.getElementById('convertedBER').innerText = berDate.toLocaleString('en-GB', { hour12: true });
+      document.getElementById('convertedEST').innerText = fmtForZone(istDateObj, 'America/New_York');
+      document.getElementById('convertedSYD').innerText = fmtForZone(istDateObj, 'Australia/Sydney');
+      document.getElementById('convertedIST').innerText = fmtForZone(istDateObj, 'Asia/Kolkata');
+      document.getElementById('convertedBER').innerText = fmtForZone(istDateObj, 'Europe/Berlin');
+      document.getElementById('convertedAFR').innerText = fmtForZone(istDateObj, 'Africa/Johannesburg');
+      document.getElementById('convertedBRA').innerText = fmtForZone(istDateObj, 'Brazil/East');
+      document.getElementById('convertedCAN').innerText = fmtForZone(istDateObj, 'America/Toronto');
+      document.getElementById('convertedFRA').innerText = fmtForZone(istDateObj, 'Europe/Berlin');
+      document.getElementById('convertedDEU').innerText = fmtForZone(istDateObj, 'Europe/Berlin');
+      document.getElementById('convertedJPN').innerText = fmtForZone(istDateObj, 'Japan');
+      document.getElementById('convertedMEX').innerText = fmtForZone(now, 'America/Mexico_City');
+      document.getElementById('convertedNLD').innerText = fmtForZone(istDateObj, 'Europe/Berlin');
+      document.getElementById('convertedPOL').innerText = fmtForZone(istDateObj, 'Europe/Warsaw');
+      document.getElementById('convertedESP').innerText = fmtForZone(istDateObj, 'Europe/Berlin');
+      document.getElementById('convertedCHE').innerText = fmtForZone(istDateObj, 'Europe/Berlin');
+      document.getElementById('convertedTHA').innerText = fmtForZone(istDateObj, 'Asia/Bangkok');
     }
+
+    // Apply group filtering by showing/hiding entire rows
+    function applyGroup() {
+      const sel = document.getElementById('groupSelect').value;
+      const allowed = GROUPS[sel] || GROUPS.all;
+
+      document.querySelectorAll('#liveTable .zone-row').forEach(el => {
+        const zone = el.getAttribute('data-zone') || 'all';
+        el.style.display = allowed.includes(zone) ? '' : 'none';
+      });
+
+      document.querySelectorAll('#convTable .zone-row').forEach(el => {
+        const zone = el.getAttribute('data-zone') || 'all';
+        el.style.display = allowed.includes(zone) ? '' : 'none';
+      });
+    }
+
+    // Move a zone up/down within the table + persist order + animate
+    function saveOrder() {
+      const keys = Array.from(document.querySelectorAll('#liveTable .zone-row')).map(r => r.getAttribute('data-key'));
+      localStorage.setItem('zoneOrder', JSON.stringify(keys));
+    }
+
+    function loadOrder() {
+      const saved = localStorage.getItem('zoneOrder');
+      if (!saved) return;
+      try {
+        const arr = JSON.parse(saved);
+        const live = document.getElementById('liveTable');
+        const conv = document.getElementById('convTable');
+        arr.forEach(k => {
+          const lr = live.querySelector(`[data-key="${k}"]`);
+          const cr = conv.querySelector(`[data-key="${k}"]`);
+          if (lr) live.appendChild(lr);
+          if (cr) conv.appendChild(cr);
+        });
+      } catch (e) { }
+    }
+
+    function animateRow(row) {
+      row.classList.add('slide-anim');
+      setTimeout(() => row.classList.remove('slide-anim'), 300);
+    }
+
+    function moveZoneInTable(table, key, delta) {
+      const rows = Array.from(table.querySelectorAll('.zone-row'));
+      const idx = rows.findIndex(r => r.getAttribute('data-key') === key);
+      if (idx === -1) return;
+      const newIdx = idx + delta;
+      if (newIdx < 0 || newIdx >= rows.length) return;
+      const row = rows[idx];
+      const ref = rows[newIdx];
+      // animate BEFORE moving to provide smoother visual
+      row.classList.add('slide-anim');
+      setTimeout(() => {
+        if (delta > 0) { table.insertBefore(row, ref.nextSibling); } else { table.insertBefore(row, ref); }
+        // remove animation class after move
+        setTimeout(() => row.classList.remove('slide-anim'), 300);
+      }, 10);
+    }
+
+    function moveZoneSync(key, delta) {
+      moveZoneInTable(document.getElementById('liveTable'), key, delta);
+      moveZoneInTable(document.getElementById('convTable'), key, delta);
+      saveOrder();
+    }
+
+    function moveZone(key, delta, scope) {
+      // scope is optional; by default move in both tables
+      if (scope === 'live') {
+        moveZoneInTable(document.getElementById('liveTable'), key, delta);
+        saveOrder();
+        return;
+      }
+      if (scope === 'conv') {
+        moveZoneInTable(document.getElementById('convTable'), key, delta);
+        saveOrder();
+        return;
+      }
+      // default: move both
+      moveZoneSync(key, delta);
+    }
+
+    // initialize
+    loadOrder();
+    applyGroup();
   </script>
 </body>
 
