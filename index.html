@@ -193,12 +193,19 @@
     }
 
     .sort-btn {
-      padding: 8px 10px;
+      padding: 10px 10px;
       border-radius: 8px;
       border: 1px solid var(--border);
       background: linear-gradient(180deg, #fff, var(--accent-light));
       cursor: pointer
     }
+
+    .sort-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
 
     @media(max-width:900px) {
       .prominent {
@@ -240,8 +247,11 @@
           <div>
             <label class="label">Apply Sorting:</label>
             <div>
-              <button class="sort-btn" onclick="sortZones('liveTable', true)">A → Z (time asc)</button><br>
-              <button class="sort-btn" onclick="sortZones('liveTable', false)">Z → A (time desc)</button>
+              <button class="sort-btn" data-target="liveTable" data-dir="asc"
+                onclick="sortZones('liveTable', true)">Ascending</button>
+              <button class="sort-btn" data-target="liveTable" data-dir="desc"
+                onclick="sortZones('liveTable', false)">Descending</button>
+
             </div>
           </div>
         </div>
@@ -344,8 +354,12 @@
         <div>
           <label class="label">Apply Sorting:</label>
           <div>
-            <button class="sort-btn" onclick="sortZones('convTable', true)">A → Z (time asc)</button><br>
-            <button class="sort-btn" onclick="sortZones('convTable', false)">Z → A (time desc)</button>
+            <button class="sort-btn" data-target="convTable" data-dir="asc"
+              onclick="sortZones('convTable', true)">Ascending</button>
+
+            <button class="sort-btn" data-target="convTable" data-dir="desc"
+              onclick="sortZones('convTable', false)">Descending</button>
+
           </div>
         </div>
       </div>
@@ -459,12 +473,26 @@
       return Number(map.year + map.month + map.day + map.hour + map.minute + map.second);
     }
 
+    function highlightSort(tableId, asc) {
+      const btns = document.querySelectorAll(`button.sort-btn[data-target="${tableId}"]`);
+      btns.forEach(btn => btn.classList.remove("active"));
+
+      const selector = asc
+        ? `button.sort-btn[data-target="${tableId}"][data-dir="asc"]`
+        : `button.sort-btn[data-target="${tableId}"][data-dir="desc"]`;
+
+      const activeBtn = document.querySelector(selector);
+      if (activeBtn) activeBtn.classList.add("active");
+    }
+
+
     // sort rows in a table by timezone local time at a reference instant
     function sortZones(tableId, asc = true, referenceInstant = null) {
       const table = document.getElementById(tableId); if (!table) return;
       const rows = Array.from(table.querySelectorAll('.zone-row'));
       const instant = referenceInstant || new Date();
       const decorated = rows.map(r => ({ r, key: zoneKeyForInstant(instant, r.getAttribute('data-tz') || 'UTC') }));
+      highlightSort(tableId, asc);
       decorated.sort((a, b) => asc ? a.key - b.key : b.key - a.key);
       decorated.forEach(d => table.appendChild(d.r));
     }
