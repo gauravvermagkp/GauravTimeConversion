@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>IST ↔ EST Time Converter</title>
+  <title>Time Zone Converter</title>
   <style>
     :root {
       --bg: #eef4ff;
@@ -227,7 +227,7 @@
 </head>
 
 <body>
-  <h1>IST ↔ EST Time Converter</h1>
+  <h1>Time Zone Converter</h1>
 
   <div class="card">
     <h3>Live Time</h3>
@@ -340,6 +340,9 @@
     <div class="label">Choose Date & Time (IST):</div>
     <input id="istInput" type="datetime-local" onchange="convertFromIST()" />
 
+    <div class="label">Choose Date & Time (EST):</div>
+    <input id="estInput" type="datetime-local" onchange="convertFromEST()" />
+
     <div style="display:flex; gap:14px; align-items:center; margin-top:8px;">
       <div style="min-width:200px;">
         <label class="label">Select Region:</label>
@@ -367,7 +370,7 @@
 
     <div class="prominent">
       <div class="est-box" id="convEstBox">
-        <div class="label">Primary — IST → EST</div>
+        <div class="label">Primary — EST</div>
         <div id="convertedEST" class="big">--</div>
         <div class="sub" style="margin-top:6px">America/New_York</div>
       </div>
@@ -445,6 +448,25 @@
   </div>
 
   <script>
+
+
+    istInput.addEventListener('input', () => {
+      if (istInput.value) {
+        estInput.value = "";
+        estInput.disabled = true;
+      } else {
+        estInput.disabled = false;
+      }
+    });
+
+    estInput.addEventListener('input', () => {
+      if (estInput.value) {
+        istInput.value = "";
+        istInput.disabled = true;
+      } else {
+        istInput.disabled = false;
+      }
+    });
     // Groups mapping
     const GROUPS = { all: ['all', 'apac', 'emea', 'clar'], apac: ['apac'], emea: ['emea'], clar: ['clar'] };
 
@@ -462,6 +484,17 @@
       const localUtcMillis = Date.UTC(y, m - 1, d, hh, mm, 0);
       const istOffsetMs = 5.5 * 3600 * 1000; // IST = UTC+5:30
       const utcMillis = localUtcMillis - istOffsetMs;
+      return new Date(utcMillis);
+    }
+
+    function buildDateFromESTInput(val) {
+      const parts = val.split('T'); if (parts.length !== 2) return null;
+      const [y, m, d] = parts[0].split('-').map(Number);
+      const [hh, mm] = parts[1].split(':').map(Number);
+      if ([y, m, d, hh, mm].some(v => Number.isNaN(v))) return null;
+      const localUtcMillis = Date.UTC(y, m - 1, d, hh, mm, 0);
+      const istOffsetMs = 5 * 3600 * 1000; // EST = UTC-5:00
+      const utcMillis = localUtcMillis + istOffsetMs;
       return new Date(utcMillis);
     }
 
@@ -508,13 +541,77 @@
 
     function convertFromIST() {
       const val = document.getElementById('istInput').value;
-      const keys = ['convertedEST', 'convertedSYD', 'convertedIST', 'convertedBER', 'convertedAFR', 'convertedBRA', 'convertedCAN', 'convertedFRA', 'convertedDEU', 'convertedJPN', 'convertedMEX', 'convertedNLD', 'convertedPOL', 'convertedESP', 'convertedCHE', 'convertedTHA'];
+      const keys = ['convertedEST', 'convertedSYD', 'convertedIST', 'convertedBER',
+        'convertedAFR', 'convertedBRA', 'convertedCAN', 'convertedFRA', 'convertedDEU',
+        'convertedJPN', 'convertedMEX', 'convertedNLD', 'convertedPOL', 'convertedESP', 'convertedCHE', 'convertedTHA'];
       if (!val) { keys.forEach(k => { const e = document.getElementById(k); if (e) e.innerText = '--'; }); return; }
       const istDateObj = buildDateFromISTInput(val);
-      if (!istDateObj || isNaN(istDateObj.getTime())) { keys.forEach(k => { const e = document.getElementById(k); if (e) e.innerText = 'Invalid Date'; }); return; }
+      if (!istDateObj || isNaN(istDateObj.getTime())) {
+        keys.forEach(k => { const e = document.getElementById(k); if (e) e.innerText = 'Invalid Date'; }); return;
+      }
 
-      const convMap = { convertedEST: 'America/New_York', convertedSYD: 'Australia/Sydney', convertedIST: 'Asia/Kolkata', convertedBER: 'Europe/Berlin', convertedAFR: 'Africa/Johannesburg', convertedBRA: 'Brazil/East', convertedCAN: 'America/Toronto', convertedFRA: 'Europe/Berlin', convertedDEU: 'Europe/Berlin', convertedJPN: 'Japan', convertedMEX: 'America/Mexico_City', convertedNLD: 'Europe/Berlin', convertedPOL: 'Europe/Warsaw', convertedESP: 'Europe/Berlin', convertedCHE: 'Europe/Berlin', convertedTHA: 'Asia/Bangkok' };
-      Object.keys(convMap).forEach(id => { const el = document.getElementById(id); if (el) el.innerText = fmtForZone(istDateObj, convMap[id]); });
+      const convMap =
+      {
+        convertedEST: 'America/New_York',
+        convertedSYD: 'Australia/Sydney',
+        convertedIST: 'Asia/Kolkata',
+        convertedBER: 'Europe/Berlin',
+        convertedAFR: 'Africa/Johannesburg',
+        convertedBRA: 'Brazil/East',
+        convertedCAN: 'America/Toronto',
+        convertedFRA: 'Europe/Berlin',
+        convertedDEU: 'Europe/Berlin',
+        convertedJPN: 'Japan',
+        convertedMEX: 'America/Mexico_City',
+        convertedNLD: 'Europe/Berlin',
+        convertedPOL: 'Europe/Warsaw',
+        convertedESP: 'Europe/Berlin',
+        convertedCHE: 'Europe/Berlin',
+        convertedTHA: 'Asia/Bangkok'
+      };
+      Object.keys(convMap).forEach(id => {
+        const el = document.getElementById(id); if (el) el.innerText =
+          fmtForZone(istDateObj, convMap[id]);
+      });
+
+      // auto-sort converted table ascending by the converted local times for that IST instant
+      sortZones('convTable', true, istDateObj);
+    }
+
+    function convertFromEST() {
+      const val = document.getElementById('estInput').value;
+      const keys = ['convertedEST', 'convertedSYD', 'convertedIST', 'convertedBER',
+        'convertedAFR', 'convertedBRA', 'convertedCAN', 'convertedFRA', 'convertedDEU',
+        'convertedJPN', 'convertedMEX', 'convertedNLD', 'convertedPOL', 'convertedESP', 'convertedCHE', 'convertedTHA'];
+      if (!val) { keys.forEach(k => { const e = document.getElementById(k); if (e) e.innerText = '--'; }); return; }
+      const istDateObj = buildDateFromESTInput(val);
+      if (!istDateObj || isNaN(istDateObj.getTime())) {
+        keys.forEach(k => { const e = document.getElementById(k); if (e) e.innerText = 'Invalid Date'; }); return;
+      }
+
+      const convMap =
+      {
+        convertedEST: 'America/New_York',
+        convertedSYD: 'Australia/Sydney',
+        convertedIST: 'Asia/Kolkata',
+        convertedBER: 'Europe/Berlin',
+        convertedAFR: 'Africa/Johannesburg',
+        convertedBRA: 'Brazil/East',
+        convertedCAN: 'America/Toronto',
+        convertedFRA: 'Europe/Berlin',
+        convertedDEU: 'Europe/Berlin',
+        convertedJPN: 'Japan',
+        convertedMEX: 'America/Mexico_City',
+        convertedNLD: 'Europe/Berlin',
+        convertedPOL: 'Europe/Warsaw',
+        convertedESP: 'Europe/Berlin',
+        convertedCHE: 'Europe/Berlin',
+        convertedTHA: 'Asia/Bangkok'
+      };
+      Object.keys(convMap).forEach(id => {
+        const el = document.getElementById(id); if (el) el.innerText =
+          fmtForZone(istDateObj, convMap[id]);
+      });
 
       // auto-sort converted table ascending by the converted local times for that IST instant
       sortZones('convTable', true, istDateObj);
