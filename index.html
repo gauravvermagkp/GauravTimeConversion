@@ -167,9 +167,9 @@
 
     /* AM/PM tone styles */
     .time-am {
-      color: #b45309;
+      color: #a9b409;
       /* warm amber */
-      background-color: rgba(251, 191, 36, 0.18);
+      background-color: rgba(237, 251, 36, 0.18);
     }
 
     .time-pm {
@@ -386,17 +386,21 @@
         <div class="others" id="liveChips">
           <div class="zone-table" id="liveTable">
 
-            <div class="zone-row" data-zone="all" data-key="IST" data-tz="Asia/Kolkata">
-              <div class="zone-name">India</div>
-              <div class="zone-value" id="liveIST">--</div>
+            <div class="zone-row" data-zone="clar" data-key="MEX" data-tz="America/Mexico_City">
+              <div class="zone-name">Mexico (America/Mexico_City)</div>
+              <div class="zone-value" id="liveMEX">--</div>
+            </div>
+            <div class="zone-row" data-zone="clar" data-key="CAN" data-tz="America/Toronto">
+              <div class="zone-name">Canada (America/Toronto)</div>
+              <div class="zone-value" id="liveCAN">--</div>
+            </div>
+            <div class="zone-row" data-zone="clar" data-key="BRA" data-tz="Brazil/East">
+              <div class="zone-name">Brazil (Brazil/East)</div>
+              <div class="zone-value" id="liveBRA">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="BER" data-tz="Europe/Berlin">
               <div class="zone-name">Belgium (Europe/Berlin)</div>
               <div class="zone-value" id="liveBER">--</div>
-            </div>
-            <div class="zone-row" data-zone="emea" data-key="AFR" data-tz="Africa/Johannesburg">
-              <div class="zone-name">Africa (Africa/Johannesburg)</div>
-              <div class="zone-value" id="liveAFR">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="FRA" data-tz="Europe/Berlin">
               <div class="zone-name">France (Europe/Berlin)</div>
@@ -405,18 +409,6 @@
             <div class="zone-row" data-zone="emea" data-key="DEU" data-tz="Europe/Berlin">
               <div class="zone-name">Germany (Europe/Berlin)</div>
               <div class="zone-value" id="liveDEU">--</div>
-            </div>
-            <div class="zone-row" data-zone="clar" data-key="BRA" data-tz="Brazil/East">
-              <div class="zone-name">Brazil (Brazil/East)</div>
-              <div class="zone-value" id="liveBRA">--</div>
-            </div>
-            <div class="zone-row" data-zone="clar" data-key="CAN" data-tz="America/Toronto">
-              <div class="zone-name">Canada (America/Toronto)</div>
-              <div class="zone-value" id="liveCAN">--</div>
-            </div>
-            <div class="zone-row" data-zone="clar" data-key="MEX" data-tz="America/Mexico_City">
-              <div class="zone-name">Mexico (America/Mexico_City)</div>
-              <div class="zone-value" id="liveMEX">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="NLD" data-tz="Europe/Berlin">
               <div class="zone-name">Netherland (Europe/Berlin)</div>
@@ -433,6 +425,15 @@
             <div class="zone-row" data-zone="emea" data-key="CHE" data-tz="Europe/Berlin">
               <div class="zone-name">Switzerland (Europe/Berlin)</div>
               <div class="zone-value" id="liveCHE">--</div>
+            </div>
+            <div class="zone-row" data-zone="emea" data-key="AFR" data-tz="Africa/Johannesburg">
+              <div class="zone-name">Africa (Africa/Johannesburg)</div>
+              <div class="zone-value" id="liveAFR">--</div>
+            </div>
+
+            <div class="zone-row" data-zone="all" data-key="IST" data-tz="Asia/Kolkata">
+              <div class="zone-name">India</div>
+              <div class="zone-value" id="liveIST">--</div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="THA" data-tz="Asia/Bangkok">
               <div class="zone-name">Thailand (Asia/Bangkok)</div>
@@ -502,17 +503,21 @@
         <div class="others" id="convertedChips">
           <div class="zone-table" id="convTable">
 
-            <div class="zone-row" data-zone="all" data-key="IST" data-tz="Asia/Kolkata">
-              <div class="zone-name">India</div>
-              <div class="zone-value" id="convertedIST">--</div>
+            <div class="zone-row" data-zone="clar" data-key="MEX" data-tz="America/Mexico_City">
+              <div class="zone-name">Mexico (America/Mexico_City)</div>
+              <div class="zone-value" id="convertedMEX">--</div>
+            </div>
+            <div class="zone-row" data-zone="clar" data-key="CAN" data-tz="America/Toronto">
+              <div class="zone-name">Canada (America/Toronto)</div>
+              <div class="zone-value" id="convertedCAN">--</div>
+            </div>
+            <div class="zone-row" data-zone="clar" data-key="BRA" data-tz="Brazil/East">
+              <div class="zone-name">Brazil (Brazil/East)</div>
+              <div class="zone-value" id="convertedBRA">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="BER" data-tz="Europe/Berlin">
               <div class="zone-name">Belgium (Europe/Berlin)</div>
               <div class="zone-value" id="convertedBER">--</div>
-            </div>
-            <div class="zone-row" data-zone="emea" data-key="AFR" data-tz="Africa/Johannesburg">
-              <div class="zone-name">Africa (Africa/Johannesburg)</div>
-              <div class="zone-value" id="convertedAFR">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="FRA" data-tz="Europe/Berlin">
               <div class="zone-name">France (Europe/Berlin)</div>
@@ -521,18 +526,6 @@
             <div class="zone-row" data-zone="emea" data-key="DEU" data-tz="Europe/Berlin">
               <div class="zone-name">Germany (Europe/Berlin)</div>
               <div class="zone-value" id="convertedDEU">--</div>
-            </div>
-            <div class="zone-row" data-zone="clar" data-key="BRA" data-tz="Brazil/East">
-              <div class="zone-name">Brazil (Brazil/East)</div>
-              <div class="zone-value" id="convertedBRA">--</div>
-            </div>
-            <div class="zone-row" data-zone="clar" data-key="CAN" data-tz="America/Toronto">
-              <div class="zone-name">Canada (America/Toronto)</div>
-              <div class="zone-value" id="convertedCAN">--</div>
-            </div>
-            <div class="zone-row" data-zone="clar" data-key="MEX" data-tz="America/Mexico_City">
-              <div class="zone-name">Mexico (America/Mexico_City)</div>
-              <div class="zone-value" id="convertedMEX">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="NLD" data-tz="Europe/Berlin">
               <div class="zone-name">Netherland (Europe/Berlin)</div>
@@ -549,6 +542,15 @@
             <div class="zone-row" data-zone="emea" data-key="CHE" data-tz="Europe/Berlin">
               <div class="zone-name">Switzerland (Europe/Berlin)</div>
               <div class="zone-value" id="convertedCHE">--</div>
+            </div>
+            <div class="zone-row" data-zone="emea" data-key="AFR" data-tz="Africa/Johannesburg">
+              <div class="zone-name">Africa (Africa/Johannesburg)</div>
+              <div class="zone-value" id="convertedAFR">--</div>
+            </div>
+
+            <div class="zone-row" data-zone="all" data-key="IST" data-tz="Asia/Kolkata">
+              <div class="zone-name">India</div>
+              <div class="zone-value" id="convertedIST">--</div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="THA" data-tz="Asia/Bangkok">
               <div class="zone-name">Thailand (Asia/Bangkok)</div>
