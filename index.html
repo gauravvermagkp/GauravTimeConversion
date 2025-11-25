@@ -251,6 +251,37 @@
       opacity: 0.95;
     }
 
+    .zone-diff {
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(148, 163, 184, 0.18);
+      /* soft slate */
+      color: #334155;
+    }
+
+    .zone-diff-ist {
+      background: rgba(99, 102, 241, 0.18);
+      /* indigo tint */
+      color: #3730a3;
+    }
+
+    .zone-diff-utc {
+      background: rgba(249, 115, 22, 0.18);
+      /* warm orange tint */
+      color: #9a3412;
+    }
+
+    /* stack IST+UTC diffs neatly when both present */
+    .zone-diff-wrap {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
 
     /* MOBILE / SMALL SCREENS */
     @media (max-width: 820px) {
@@ -360,12 +391,6 @@
         padding: 12px;
       }
 
-      .zone-diff {
-        font-size: 12px;
-        color: #494769;
-        margin-top: 2px;
-        opacity: 0.9;
-      }
     }
   </style>
 </head>
@@ -416,78 +441,124 @@
             <div class="zone-row" data-zone="clar" data-key="MEX" data-tz="America/Mexico_City">
               <div class="zone-name">Mexico (America/Mexico_City)</div>
               <div class="zone-value" id="liveMEX">--</div>
-              <div class="zone-diff" id="diff-liveMEX">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveMEX"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveMEX"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="clar" data-key="CAN" data-tz="America/Toronto">
               <div class="zone-name">Canada (America/Toronto)</div>
               <div class="zone-value" id="liveCAN">--</div>
-              <div class="zone-diff" id="diff-liveCAN">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveCAN"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveCAN"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="clar" data-key="BRA" data-tz="Brazil/East">
               <div class="zone-name">Brazil (Brazil/East)</div>
               <div class="zone-value" id="liveBRA">--</div>
-              <div class="zone-diff" id="diff-liveBRA">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveBRA"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveBRA"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="BER" data-tz="Europe/Berlin">
               <div class="zone-name">Belgium (Europe/Berlin)</div>
               <div class="zone-value" id="liveBER">--</div>
-              <div class="zone-diff" id="diff-liveBER">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveBER"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveBER"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="FRA" data-tz="Europe/Berlin">
               <div class="zone-name">France (Europe/Berlin)</div>
               <div class="zone-value" id="liveFRA">--</div>
-              <div class="zone-diff" id="diff-liveFRA">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveFRA"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveFRA"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="DEU" data-tz="Europe/Berlin">
               <div class="zone-name">Germany (Europe/Berlin)</div>
               <div class="zone-value" id="liveDEU">--</div>
-              <div class="zone-diff" id="diff-liveDEU">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveDEU"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveDEU"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="NLD" data-tz="Europe/Berlin">
               <div class="zone-name">Netherland (Europe/Berlin)</div>
               <div class="zone-value" id="liveNLD">--</div>
-              <div class="zone-diff" id="diff-liveNLD">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveNLD"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveNLD"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="POL" data-tz="Europe/Warsaw">
               <div class="zone-name">Poland (Europe/Warsaw)</div>
               <div class="zone-value" id="livePOL">--</div>
-              <div class="zone-diff" id="diff-livePOL"></div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-livePOL"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-livePOL"></div>
+              </div>
+
             </div>
             <div class="zone-row" data-zone="emea" data-key="ESP" data-tz="Europe/Berlin">
               <div class="zone-name">Spain (Europe/Berlin)</div>
               <div class="zone-value" id="liveESP">--</div>
-              <div class="zone-diff" id="diff-liveESP"></div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveESP"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveESP"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="CHE" data-tz="Europe/Berlin">
               <div class="zone-name">Switzerland (Europe/Berlin)</div>
               <div class="zone-value" id="liveCHE">--</div>
-              <div class="zone-diff" id="diff-liveCHE">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveCHE"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveCHE"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="AFR" data-tz="Africa/Johannesburg">
               <div class="zone-name">Africa (Africa/Johannesburg)</div>
               <div class="zone-value" id="liveAFR">--</div>
-              <div class="zone-diff" id="diff-liveAFR">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveAFR"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveAFR"></div>
+              </div>
             </div>
 
             <div class="zone-row" data-zone="all" data-key="IST" data-tz="Asia/Kolkata">
               <div class="zone-name">India</div>
               <div class="zone-value" id="liveIST">--</div>
-              <div class="zone-diff" id="diff-liveIST">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveIST"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveIST"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="THA" data-tz="Asia/Bangkok">
               <div class="zone-name">Thailand (Asia/Bangkok)</div>
               <div class="zone-value" id="liveTHA">--</div>
-              <div class="zone-diff" id="diff-liveTHA">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveTHA"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveTHA"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="JPN" data-tz="Japan">
               <div class="zone-name">Japan (Japan)</div>
               <div class="zone-value" id="liveJPN">--</div>
-              <div class="zone-diff" id="diff-liveJPN">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveJPN"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveJPN"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="SYD" data-tz="Australia/Sydney">
               <div class="zone-name">Australia (Australia/Sydney)</div>
               <div class="zone-value" id="liveSYD">--</div>
-              <div class="zone-diff" id="diff-liveSYD">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-liveSYD"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-liveSYD"></div>
+              </div>
             </div>
 
           </div>
@@ -560,78 +631,123 @@
             <div class="zone-row" data-zone="clar" data-key="MEX" data-tz="America/Mexico_City">
               <div class="zone-name">Mexico (America/Mexico_City)</div>
               <div class="zone-value" id="convertedMEX">--</div>
-              <div class="zone-diff" id="diff-convertedMEX">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedMEX"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedMEX"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="clar" data-key="CAN" data-tz="America/Toronto">
               <div class="zone-name">Canada (America/Toronto)</div>
               <div class="zone-value" id="convertedCAN">--</div>
-              <div class="zone-diff" id="diff-convertedCAN">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedCAN"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedCAN"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="clar" data-key="BRA" data-tz="Brazil/East">
               <div class="zone-name">Brazil (Brazil/East)</div>
               <div class="zone-value" id="convertedBRA">--</div>
-              <div class="zone-diff" id="diff-convertedBRA">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedBRA"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedBRA"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="BER" data-tz="Europe/Berlin">
               <div class="zone-name">Belgium (Europe/Berlin)</div>
               <div class="zone-value" id="convertedBER">--</div>
-              <div class="zone-diff" id="diff-convertedBER">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedBER"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedBER"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="FRA" data-tz="Europe/Berlin">
               <div class="zone-name">France (Europe/Berlin)</div>
               <div class="zone-value" id="convertedFRA">--</div>
-              <div class="zone-diff" id="diff-convertedFRA">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedFRA"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedFRA"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="DEU" data-tz="Europe/Berlin">
               <div class="zone-name">Germany (Europe/Berlin)</div>
               <div class="zone-value" id="convertedDEU">--</div>
-              <div class="zone-diff" id="diff-convertedDEU">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedDEU"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedDEU"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="NLD" data-tz="Europe/Berlin">
               <div class="zone-name">Netherland (Europe/Berlin)</div>
               <div class="zone-value" id="convertedNLD">--</div>
-              <div class="zone-diff" id="diff-convertedNLD">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedNLD"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedNLD"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="POL" data-tz="Europe/Warsaw">
               <div class="zone-name">Poland (Europe/Warsaw)</div>
               <div class="zone-value" id="convertedPOL">--</div>
-              <div class="zone-diff" id="diff-convertedPOL">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedPOL"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedPOL"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="ESP" data-tz="Europe/Berlin">
               <div class="zone-name">Spain (Europe/Berlin)</div>
               <div class="zone-value" id="convertedESP">--</div>
-              <div class="zone-diff" id="diff-convertedESP">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedESP"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedESP"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="CHE" data-tz="Europe/Berlin">
               <div class="zone-name">Switzerland (Europe/Berlin)</div>
               <div class="zone-value" id="convertedCHE">--</div>
-              <div class="zone-diff" id="diff-convertedCHE">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedCHE"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedCHE"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="AFR" data-tz="Africa/Johannesburg">
               <div class="zone-name">Africa (Africa/Johannesburg)</div>
               <div class="zone-value" id="convertedAFR">--</div>
-              <div class="zone-diff" id="diff-convertedAFR">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedAFR"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedAFR"></div>
+              </div>
             </div>
 
             <div class="zone-row" data-zone="all" data-key="IST" data-tz="Asia/Kolkata">
               <div class="zone-name">India</div>
               <div class="zone-value" id="convertedIST">--</div>
-              <div class="zone-diff" id="diff-convertedIST">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedIST"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedIST"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="THA" data-tz="Asia/Bangkok">
               <div class="zone-name">Thailand (Asia/Bangkok)</div>
               <div class="zone-value" id="convertedTHA">--</div>
-              <div class="zone-diff" id="diff-convertedTHA">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedTHA"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedTHA"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="JPN" data-tz="Japan">
               <div class="zone-name">Japan (Japan)</div>
               <div class="zone-value" id="convertedJPN">--</div>
-              <div class="zone-diff" id="diff-convertedJPN">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedJPN"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedJPN"></div>
+              </div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="SYD" data-tz="Australia/Sydney">
               <div class="zone-name">Australia (Australia/Sydney)</div>
               <div class="zone-value" id="convertedSYD">--</div>
-              <div class="zone-diff" id="diff-convertedSYD">--</div>
+              <div class="zone-diff-wrap">
+                <div class="zone-diff zone-diff-ist" id="diff-ist-convertedSYD"></div>
+                <div class="zone-diff zone-diff-utc" id="diff-utc-convertedSYD"></div>
+              </div>
             </div>
 
           </div>
@@ -711,11 +827,10 @@
     }
 
     // Time difference between given zone with IST and EST, with half-hour support
-    function timeDiffLabel(tz) {
+    function timeDiffLabelIST(tz) {
       const now = new Date();
 
       const offsetIst = getOffsetMinutes(now, "Asia/Kolkata");
-      const offsetgmt = getOffsetMinutes(now, "utc");
       const offsetOther = getOffsetMinutes(now, tz);
 
       const diffMinutesist = offsetOther - offsetIst;   // other - IST
@@ -728,6 +843,14 @@
       const sepist = hPartist && mPartist ? " " : "";
       const directionist = diffMinutesist > 0 ? "ahead of IST" : "behind IST";
 
+      return `${hPartist}${sepist}${mPartist} ${directionist}`;
+    }
+
+    function timeDiffLabelUTC(tz) {
+      const now = new Date();
+      const offsetgmt = getOffsetMinutes(now, "utc");
+      const offsetOther = getOffsetMinutes(now, tz);
+
       const diffMinutesgmt = offsetOther - offsetgmt;   // other - GMT
       if (diffMinutesgmt === 0) return "(same as UTC)";
       const absMingmt = Math.abs(diffMinutesgmt);
@@ -736,11 +859,8 @@
       const hPartgmt = hoursgmt > 0 ? `${hoursgmt}h` : "";
       const mPartgmt = minsgmt > 0 ? `${minsgmt}m` : "";
       const sepgmt = hPartgmt && mPartgmt ? " " : "";
-
       const directiongmt = diffMinutesgmt > 0 ? "ahead of UTC" : "behind UTC";
-
-
-      return `${hPartist}${sepist}${mPartist} ${directionist} \n ${hPartgmt}${sepgmt}${mPartgmt} ${directiongmt}`;
+      return `${hPartgmt}${sepgmt}${mPartgmt} ${directiongmt}`;
     }
 
 
@@ -927,8 +1047,12 @@
 
       Object.keys(map).forEach(id => {
         setTimeWithTone(id, now, map[id]);
-        const diffEl = document.getElementById("diff-" + id);
-        if (diffEl) diffEl.innerText = timeDiffLabel(map[id]);
+        const diffIst = document.getElementById("diff-ist-" + id);
+        const diffUTC = document.getElementById("diff-utc-" + id);
+
+        if (diffIst) diffIst.innerText = timeDiffLabelIST(map[id]);
+        if (diffUTC) diffUTC.innerText = timeDiffLabelUTC(map[id]);
+
       });
 
       // Also shade the primary EST live box
@@ -947,8 +1071,11 @@
       if (!val) {
         keys.forEach(k => {
           clearTimeDisplay(k, '--');
-          const diffEl = document.getElementById("diff-" + k);
-          if (diffEl) diffEl.innerText = "";
+          const diffIst = document.getElementById("diff-ist-" + id);
+          const diffUTC = document.getElementById("diff-utc-" + id);
+
+          if (diffIst) diffIst.innerText = timeDiffLabelIST(convMap[id]);
+          if (diffUTC) diffUTC.innerText = timeDiffLabelUTC(convMap[id]);
         });
         return;
       }
@@ -956,8 +1083,11 @@
       if (!istDateObj || isNaN(istDateObj.getTime())) {
         keys.forEach(k => {
           clearTimeDisplay(k, 'Invalid Date');
-          const diffEl = document.getElementById("diff-" + k);
-          if (diffEl) diffEl.innerText = "";
+          const diffIst = document.getElementById("diff-ist-" + id);
+          const diffUTC = document.getElementById("diff-utc-" + id);
+
+          if (diffIst) diffIst.innerText = timeDiffLabelIST(convMap[id]);
+          if (diffUTC) diffUTC.innerText = timeDiffLabelUTC(convMap[id]);
         });
         return;
       }
@@ -983,8 +1113,11 @@
 
       Object.keys(convMap).forEach(id => {
         setTimeWithTone(id, istDateObj, convMap[id]);
-        const diffEl = document.getElementById("diff-" + id);
-        if (diffEl) diffEl.innerText = timeDiffLabel(convMap[id]);
+        const diffIst = document.getElementById("diff-ist-" + id);
+        const diffUTC = document.getElementById("diff-utc-" + id);
+
+        if (diffIst) diffIst.innerText = timeDiffLabelIST(convMap[id]);
+        if (diffUTC) diffUTC.innerText = timeDiffLabelUTC(convMap[id]);
       });
 
       // Shade primary converted EST box as well
