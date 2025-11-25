@@ -165,6 +165,20 @@
       font-size: 15px;
     }
 
+    /* AM/PM tone styles */
+    .time-am {
+      color: #b45309;
+      /* warm amber */
+      background-color: rgba(251, 191, 36, 0.18);
+    }
+
+    .time-pm {
+      color: #1e3a8a;
+      /* deeper blue */
+      background-color: rgba(37, 99, 235, 0.18);
+    }
+
+
     .zone-value {
       font-weight: 700;
       color: #1e40af;
@@ -607,6 +621,35 @@
       return dateObj.toLocaleString('en-GB', opts);
     }
 
+    const AM_CLASS = 'time-am';
+    const PM_CLASS = 'time-pm';
+
+    function setTimeWithTone(id, dateObj, timeZone) {
+      const el = document.getElementById(id);
+      if (!el || !dateObj) return;
+
+      const formatted = fmtForZone(dateObj, timeZone);
+      el.innerText = formatted;
+
+      // reset previous tone
+      el.classList.remove(AM_CLASS, PM_CLASS);
+
+      const lower = formatted.toLowerCase();
+      if (lower.includes(' am')) {
+        el.classList.add(AM_CLASS);
+      } else if (lower.includes(' pm')) {
+        el.classList.add(PM_CLASS);
+      }
+    }
+
+    function clearTimeDisplay(id, text) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.innerText = text;
+      el.classList.remove(AM_CLASS, PM_CLASS);
+    }
+
+
     function buildDateFromISTInput(val) {
       const parts = val.split('T');
       if (parts.length !== 2) return null;
@@ -696,11 +739,12 @@
         liveCHE: 'Europe/Berlin',
         liveTHA: 'Asia/Bangkok'
       };
+
       Object.keys(map).forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = fmtForZone(now, map[id]);
+        setTimeWithTone(id, now, map[id]);
       });
     }
+
 
     setInterval(updateLiveClock, 1000);
     updateLiveClock();
@@ -711,18 +755,12 @@
         'convertedAFR', 'convertedBRA', 'convertedCAN', 'convertedFRA', 'convertedDEU',
         'convertedJPN', 'convertedMEX', 'convertedNLD', 'convertedPOL', 'convertedESP', 'convertedCHE', 'convertedTHA'];
       if (!val) {
-        keys.forEach(k => {
-          const e = document.getElementById(k);
-          if (e) e.innerText = '--';
-        });
+        keys.forEach(k => clearTimeDisplay(k, '--'));
         return;
       }
       const istDateObj = buildDateFromISTInput(val);
       if (!istDateObj || isNaN(istDateObj.getTime())) {
-        keys.forEach(k => {
-          const e = document.getElementById(k);
-          if (e) e.innerText = 'Invalid Date';
-        });
+        keys.forEach(k => clearTimeDisplay(k, 'Invalid Date'));
         return;
       }
 
@@ -744,10 +782,11 @@
         convertedCHE: 'Europe/Berlin',
         convertedTHA: 'Asia/Bangkok'
       };
+
       Object.keys(convMap).forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = fmtForZone(istDateObj, convMap[id]);
+        setTimeWithTone(id, istDateObj, convMap[id]);
       });
+
 
       // auto-sort converted table ascending by the converted local times for that IST instant
       sortZones('convTable', true, istDateObj);
@@ -759,18 +798,12 @@
         'convertedAFR', 'convertedBRA', 'convertedCAN', 'convertedFRA', 'convertedDEU',
         'convertedJPN', 'convertedMEX', 'convertedNLD', 'convertedPOL', 'convertedESP', 'convertedCHE', 'convertedTHA'];
       if (!val) {
-        keys.forEach(k => {
-          const e = document.getElementById(k);
-          if (e) e.innerText = '--';
-        });
+        keys.forEach(k => clearTimeDisplay(k, '--'));
         return;
       }
-      const istDateObj = buildDateFromESTInput(val);
+      const istDateObj = buildDateFromISTInput(val);
       if (!istDateObj || isNaN(istDateObj.getTime())) {
-        keys.forEach(k => {
-          const e = document.getElementById(k);
-          if (e) e.innerText = 'Invalid Date';
-        });
+        keys.forEach(k => clearTimeDisplay(k, 'Invalid Date'));
         return;
       }
 
@@ -792,9 +825,9 @@
         convertedCHE: 'Europe/Berlin',
         convertedTHA: 'Asia/Bangkok'
       };
+
       Object.keys(convMap).forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = fmtForZone(istDateObj, convMap[id]);
+        setTimeWithTone(id, istDateObj, convMap[id]);
       });
 
       // auto-sort converted table ascending by the converted local times for that IST instant
