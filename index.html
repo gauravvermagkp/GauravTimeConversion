@@ -111,6 +111,7 @@
       padding: 18px 22px;
       border-radius: 12px;
       box-shadow: 0 8px 30px rgba(239, 68, 68, 0.06);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
     }
 
     .est-box .label {
@@ -153,6 +154,7 @@
       background: linear-gradient(180deg, #fff, var(--accent-light));
       border: 1px solid rgba(15, 23, 42, 0.03);
       box-shadow: 0 4px 12px rgba(2, 6, 23, 0.03);
+      transition: box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
     }
 
     .zone-row+.zone-row {
@@ -168,26 +170,19 @@
     /* AM/PM tone styles */
     .time-am {
       color: #a9b409;
-      /* warm amber */
       background-color: rgba(237, 251, 36, 0.18);
     }
 
     .time-pm {
       color: #1e3a8a;
-      /* deeper blue */
       background-color: rgba(37, 99, 235, 0.18);
     }
-
 
     .zone-value {
       font-weight: 700;
       color: #1e40af;
       font-size: 15px;
       text-align: right;
-    }
-
-    .zone-table .zone-row:nth-child(even) {
-      background: linear-gradient(180deg, #fbfdff, var(--accent-light));
     }
 
     .zone-row[data-zone="apac"] {
@@ -231,6 +226,31 @@
       color: white;
       border-color: var(--accent);
     }
+
+    /* Meeting planner / business hours shading – color the chips themselves */
+    .row-business-core {
+      background: linear-gradient(180deg, #ecfdf3, #dcfce7);
+      /* soft green */
+      border-color: rgba(22, 163, 74, 0.35);
+      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.12);
+    }
+
+    .row-business-extended {
+      background: linear-gradient(180deg, #f9fafb, #e5e7eb);
+      /* neutral grey */
+      border-color: rgba(148, 163, 184, 0.4);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+      opacity: 0.95;
+    }
+
+    .row-business-off {
+      background: linear-gradient(180deg, #f9fafb, #e5e7eb);
+      /* neutral grey */
+      border-color: rgba(148, 163, 184, 0.4);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+      opacity: 0.95;
+    }
+
 
     /* MOBILE / SMALL SCREENS */
     @media (max-width: 820px) {
@@ -339,6 +359,13 @@
       .card {
         padding: 12px;
       }
+
+      .zone-diff {
+        font-size: 12px;
+        color: #494769;
+        margin-top: 2px;
+        opacity: 0.9;
+      }
     }
   </style>
 </head>
@@ -389,67 +416,94 @@
             <div class="zone-row" data-zone="clar" data-key="MEX" data-tz="America/Mexico_City">
               <div class="zone-name">Mexico (America/Mexico_City)</div>
               <div class="zone-value" id="liveMEX">--</div>
+              <div class="zone-diff" id="diff-liveMEX">--</div>
             </div>
             <div class="zone-row" data-zone="clar" data-key="CAN" data-tz="America/Toronto">
               <div class="zone-name">Canada (America/Toronto)</div>
               <div class="zone-value" id="liveCAN">--</div>
+              <div class="zone-diff" id="diff-liveCAN">--</div>
             </div>
             <div class="zone-row" data-zone="clar" data-key="BRA" data-tz="Brazil/East">
               <div class="zone-name">Brazil (Brazil/East)</div>
               <div class="zone-value" id="liveBRA">--</div>
+              <div class="zone-diff" id="diff-liveBRA">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="BER" data-tz="Europe/Berlin">
               <div class="zone-name">Belgium (Europe/Berlin)</div>
               <div class="zone-value" id="liveBER">--</div>
+              <div class="zone-diff" id="diff-liveBER">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="FRA" data-tz="Europe/Berlin">
               <div class="zone-name">France (Europe/Berlin)</div>
               <div class="zone-value" id="liveFRA">--</div>
+              <div class="zone-diff" id="diff-liveFRA">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="DEU" data-tz="Europe/Berlin">
               <div class="zone-name">Germany (Europe/Berlin)</div>
               <div class="zone-value" id="liveDEU">--</div>
+              <div class="zone-diff" id="diff-liveDEU">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="NLD" data-tz="Europe/Berlin">
               <div class="zone-name">Netherland (Europe/Berlin)</div>
               <div class="zone-value" id="liveNLD">--</div>
+              <div class="zone-diff" id="diff-liveNLD">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="POL" data-tz="Europe/Warsaw">
               <div class="zone-name">Poland (Europe/Warsaw)</div>
               <div class="zone-value" id="livePOL">--</div>
+              <div class="zone-diff" id="diff-livePOL"></div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="ESP" data-tz="Europe/Berlin">
               <div class="zone-name">Spain (Europe/Berlin)</div>
               <div class="zone-value" id="liveESP">--</div>
+              <div class="zone-diff" id="diff-liveESP"></div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="CHE" data-tz="Europe/Berlin">
               <div class="zone-name">Switzerland (Europe/Berlin)</div>
               <div class="zone-value" id="liveCHE">--</div>
+              <div class="zone-diff" id="diff-liveCHE">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="AFR" data-tz="Africa/Johannesburg">
               <div class="zone-name">Africa (Africa/Johannesburg)</div>
               <div class="zone-value" id="liveAFR">--</div>
+              <div class="zone-diff" id="diff-liveAFR">--</div>
             </div>
 
             <div class="zone-row" data-zone="all" data-key="IST" data-tz="Asia/Kolkata">
               <div class="zone-name">India</div>
               <div class="zone-value" id="liveIST">--</div>
+              <div class="zone-diff" id="diff-liveIST">--</div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="THA" data-tz="Asia/Bangkok">
               <div class="zone-name">Thailand (Asia/Bangkok)</div>
               <div class="zone-value" id="liveTHA">--</div>
+              <div class="zone-diff" id="diff-liveTHA">--</div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="JPN" data-tz="Japan">
               <div class="zone-name">Japan (Japan)</div>
               <div class="zone-value" id="liveJPN">--</div>
+              <div class="zone-diff" id="diff-liveJPN">--</div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="SYD" data-tz="Australia/Sydney">
               <div class="zone-name">Australia (Australia/Sydney)</div>
               <div class="zone-value" id="liveSYD">--</div>
+              <div class="zone-diff" id="diff-liveSYD">--</div>
             </div>
 
           </div>
         </div>
+      </div>
+
+      <div style="margin-top:10px; font-size:12px; color:var(--muted);">
+        <strong>Business hours guide:</strong>
+        <span style="border-radius:999px; padding:2px 8px; border:1px solid rgba(22,163,74,0.6); margin-left:6px;">Green
+          =
+          09:00–18:00 (working hours)</span>
+        <span
+          style="border-radius:999px; padding:2px 8px; border:1px solid rgba(148, 163, 184, 0.4); margin-left:6px;">Grey
+          =
+          18:00–09:00 (off hours)</span>
+        <span style="margin-left:6px;">(local time)</span>
       </div>
     </div>
 
@@ -506,71 +560,87 @@
             <div class="zone-row" data-zone="clar" data-key="MEX" data-tz="America/Mexico_City">
               <div class="zone-name">Mexico (America/Mexico_City)</div>
               <div class="zone-value" id="convertedMEX">--</div>
+              <div class="zone-diff" id="diff-convertedMEX">--</div>
             </div>
             <div class="zone-row" data-zone="clar" data-key="CAN" data-tz="America/Toronto">
               <div class="zone-name">Canada (America/Toronto)</div>
               <div class="zone-value" id="convertedCAN">--</div>
+              <div class="zone-diff" id="diff-convertedCAN">--</div>
             </div>
             <div class="zone-row" data-zone="clar" data-key="BRA" data-tz="Brazil/East">
               <div class="zone-name">Brazil (Brazil/East)</div>
               <div class="zone-value" id="convertedBRA">--</div>
+              <div class="zone-diff" id="diff-convertedBRA">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="BER" data-tz="Europe/Berlin">
               <div class="zone-name">Belgium (Europe/Berlin)</div>
               <div class="zone-value" id="convertedBER">--</div>
+              <div class="zone-diff" id="diff-convertedBER">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="FRA" data-tz="Europe/Berlin">
               <div class="zone-name">France (Europe/Berlin)</div>
               <div class="zone-value" id="convertedFRA">--</div>
+              <div class="zone-diff" id="diff-convertedFRA">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="DEU" data-tz="Europe/Berlin">
               <div class="zone-name">Germany (Europe/Berlin)</div>
               <div class="zone-value" id="convertedDEU">--</div>
+              <div class="zone-diff" id="diff-convertedDEU">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="NLD" data-tz="Europe/Berlin">
               <div class="zone-name">Netherland (Europe/Berlin)</div>
               <div class="zone-value" id="convertedNLD">--</div>
+              <div class="zone-diff" id="diff-convertedNLD">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="POL" data-tz="Europe/Warsaw">
               <div class="zone-name">Poland (Europe/Warsaw)</div>
               <div class="zone-value" id="convertedPOL">--</div>
+              <div class="zone-diff" id="diff-convertedPOL">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="ESP" data-tz="Europe/Berlin">
               <div class="zone-name">Spain (Europe/Berlin)</div>
               <div class="zone-value" id="convertedESP">--</div>
+              <div class="zone-diff" id="diff-convertedESP">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="CHE" data-tz="Europe/Berlin">
               <div class="zone-name">Switzerland (Europe/Berlin)</div>
               <div class="zone-value" id="convertedCHE">--</div>
+              <div class="zone-diff" id="diff-convertedCHE">--</div>
             </div>
             <div class="zone-row" data-zone="emea" data-key="AFR" data-tz="Africa/Johannesburg">
               <div class="zone-name">Africa (Africa/Johannesburg)</div>
               <div class="zone-value" id="convertedAFR">--</div>
+              <div class="zone-diff" id="diff-convertedAFR">--</div>
             </div>
 
             <div class="zone-row" data-zone="all" data-key="IST" data-tz="Asia/Kolkata">
               <div class="zone-name">India</div>
               <div class="zone-value" id="convertedIST">--</div>
+              <div class="zone-diff" id="diff-convertedIST">--</div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="THA" data-tz="Asia/Bangkok">
               <div class="zone-name">Thailand (Asia/Bangkok)</div>
               <div class="zone-value" id="convertedTHA">--</div>
+              <div class="zone-diff" id="diff-convertedTHA">--</div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="JPN" data-tz="Japan">
               <div class="zone-name">Japan (Japan)</div>
               <div class="zone-value" id="convertedJPN">--</div>
+              <div class="zone-diff" id="diff-convertedJPN">--</div>
             </div>
             <div class="zone-row" data-zone="apac" data-key="SYD" data-tz="Australia/Sydney">
               <div class="zone-name">Australia (Australia/Sydney)</div>
               <div class="zone-value" id="convertedSYD">--</div>
+              <div class="zone-diff" id="diff-convertedSYD">--</div>
             </div>
 
           </div>
         </div>
       </div>
 
-      <div style="margin-top:12px; color:var(--muted); font-size:13px">Note: choose a group to filter which secondary
-        zones are visible. Use the sort buttons to order the Live table or pick a date to auto-sort Converted table.
+      <div style="margin-top:12px; color:var(--muted); font-size:13px">
+        Note: choose a region to filter which secondary zones are visible.
+        Use the sort buttons to order the tables or pick a date to auto-sort the Converted table.
       </div>
     </div>
   </div>
@@ -608,6 +678,73 @@
       clar: ['clar']
     };
 
+    // Get offset (in minutes) from UTC for a timezone at a given instant
+    function getOffsetMinutes(instant, timeZone) {
+      const fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      });
+
+      const parts = fmt.formatToParts(instant);
+      const map = {};
+      parts.forEach(p => {
+        if (p.type !== 'literal') map[p.type] = p.value;
+      });
+
+      const asUTC = Date.UTC(
+        Number(map.year),
+        Number(map.month) - 1,
+        Number(map.day),
+        Number(map.hour),
+        Number(map.minute),
+        Number(map.second)
+      );
+
+      // offset = local_time_as_UTC - actual_UTC
+      return Math.round((asUTC - instant.getTime()) / 60000);
+    }
+
+    // Time difference between given zone with IST and EST, with half-hour support
+    function timeDiffLabel(tz) {
+      const now = new Date();
+
+      const offsetIst = getOffsetMinutes(now, "Asia/Kolkata");
+      const offsetgmt = getOffsetMinutes(now, "utc");
+      const offsetOther = getOffsetMinutes(now, tz);
+
+      const diffMinutesist = offsetOther - offsetIst;   // other - IST
+      if (diffMinutesist === 0) return "(same as IST)";
+      const absMinist = Math.abs(diffMinutesist);
+      const hoursist = Math.floor(absMinist / 60);
+      const minsist = absMinist % 60;
+      const hPartist = hoursist > 0 ? `${hoursist}h` : "";
+      const mPartist = minsist > 0 ? `${minsist}m` : "";
+      const sepist = hPartist && mPartist ? " " : "";
+      const directionist = diffMinutesist > 0 ? "ahead of IST" : "behind IST";
+
+      const diffMinutesgmt = offsetOther - offsetgmt;   // other - GMT
+      if (diffMinutesgmt === 0) return "(same as UTC)";
+      const absMingmt = Math.abs(diffMinutesgmt);
+      const hoursgmt = Math.floor(absMingmt / 60);
+      const minsgmt = absMingmt % 60;
+      const hPartgmt = hoursgmt > 0 ? `${hoursgmt}h` : "";
+      const mPartgmt = minsgmt > 0 ? `${minsgmt}m` : "";
+      const sepgmt = hPartgmt && mPartgmt ? " " : "";
+
+      const directiongmt = diffMinutesgmt > 0 ? "ahead of UTC" : "behind UTC";
+
+
+      return `${hPartist}${sepist}${mPartist} ${directionist} \n ${hPartgmt}${sepgmt}${mPartgmt} ${directiongmt}`;
+    }
+
+
+
     // Formatter to DD/MM/YYYY hh:mm:ss am/pm in given timezone
     function fmtForZone(dateObj, timeZone) {
       const opts = {
@@ -626,6 +763,47 @@
     const AM_CLASS = 'time-am';
     const PM_CLASS = 'time-pm';
 
+    // classify business-hours bucket for a given instant and timezone
+    function classifyBusiness(instant, timeZone) {
+      const fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone,
+        hour: '2-digit',
+        hour12: false
+      });
+      const parts = fmt.formatToParts(instant);
+      const hourPart = parts.find(p => p.type === 'hour');
+      const hour = hourPart ? parseInt(hourPart.value, 10) : NaN;
+      if (isNaN(hour)) return 'off';
+
+      // core: 09:00–18:00, extended: 07:00–09:00 & 18:00–22:00, off: others
+      if (hour >= 9 && hour < 18) return 'core';
+      if ((hour < 9) || (hour >= 18)) return 'extended';
+      return 'off';
+    }
+
+    function applyBusinessClassFromElement(timeElement, instant, timeZone) {
+      if (!timeElement || !instant) return;
+      const row = timeElement.closest('.zone-row') || timeElement.closest('.est-box');
+      if (!row) return;
+
+      row.classList.remove('row-business-core', 'row-business-extended', 'row-business-off');
+      const bucket = classifyBusiness(instant, timeZone);
+      if (bucket === 'core') {
+        row.classList.add('row-business-core');
+      } else if (bucket === 'extended') {
+        row.classList.add('row-business-extended');
+      } else {
+        row.classList.add('row-business-off');
+      }
+    }
+
+    function clearBusinessClassFromElement(timeElement) {
+      if (!timeElement) return;
+      const row = timeElement.closest('.zone-row') || timeElement.closest('.est-box');
+      if (!row) return;
+      row.classList.remove('row-business-core', 'row-business-extended', 'row-business-off');
+    }
+
     function setTimeWithTone(id, dateObj, timeZone) {
       const el = document.getElementById(id);
       if (!el || !dateObj) return;
@@ -642,6 +820,9 @@
       } else if (lower.includes(' pm')) {
         el.classList.add(PM_CLASS);
       }
+
+      // apply business-hours shading
+      applyBusinessClassFromElement(el, dateObj, timeZone);
     }
 
     function clearTimeDisplay(id, text) {
@@ -649,8 +830,8 @@
       if (!el) return;
       el.innerText = text;
       el.classList.remove(AM_CLASS, PM_CLASS);
+      clearBusinessClassFromElement(el);
     }
-
 
     function buildDateFromISTInput(val) {
       const parts = val.split('T');
@@ -700,7 +881,9 @@
       const btns = document.querySelectorAll(`button.sort-btn[data-target="${tableId}"]`);
       btns.forEach(btn => btn.classList.remove("active"));
 
-      const selector = asc ? `button.sort-btn[data-target="${tableId}"][data-dir="asc"]` : `button.sort-btn[data-target="${tableId}"][data-dir="desc"]`;
+      const selector = asc
+        ? `button.sort-btn[data-target="${tableId}"][data-dir="asc"]`
+        : `button.sort-btn[data-target="${tableId}"][data-dir="desc"]`;
 
       const activeBtn = document.querySelector(selector);
       if (activeBtn) activeBtn.classList.add("active");
@@ -744,9 +927,14 @@
 
       Object.keys(map).forEach(id => {
         setTimeWithTone(id, now, map[id]);
+        const diffEl = document.getElementById("diff-" + id);
+        if (diffEl) diffEl.innerText = timeDiffLabel(map[id]);
       });
-    }
 
+      // Also shade the primary EST live box
+      const estBig = document.getElementById('liveEST');
+      if (estBig) applyBusinessClassFromElement(estBig, now, 'America/New_York');
+    }
 
     setInterval(updateLiveClock, 1000);
     updateLiveClock();
@@ -757,12 +945,20 @@
         'convertedAFR', 'convertedBRA', 'convertedCAN', 'convertedFRA', 'convertedDEU',
         'convertedJPN', 'convertedMEX', 'convertedNLD', 'convertedPOL', 'convertedESP', 'convertedCHE', 'convertedTHA'];
       if (!val) {
-        keys.forEach(k => clearTimeDisplay(k, '--'));
+        keys.forEach(k => {
+          clearTimeDisplay(k, '--');
+          const diffEl = document.getElementById("diff-" + k);
+          if (diffEl) diffEl.innerText = "";
+        });
         return;
       }
       const istDateObj = buildDateFromISTInput(val);
       if (!istDateObj || isNaN(istDateObj.getTime())) {
-        keys.forEach(k => clearTimeDisplay(k, 'Invalid Date'));
+        keys.forEach(k => {
+          clearTimeDisplay(k, 'Invalid Date');
+          const diffEl = document.getElementById("diff-" + k);
+          if (diffEl) diffEl.innerText = "";
+        });
         return;
       }
 
@@ -787,8 +983,13 @@
 
       Object.keys(convMap).forEach(id => {
         setTimeWithTone(id, istDateObj, convMap[id]);
+        const diffEl = document.getElementById("diff-" + id);
+        if (diffEl) diffEl.innerText = timeDiffLabel(convMap[id]);
       });
 
+      // Shade primary converted EST box as well
+      const estBig = document.getElementById('convertedEST');
+      if (estBig) applyBusinessClassFromElement(estBig, istDateObj, 'America/New_York');
 
       // auto-sort converted table ascending by the converted local times for that IST instant
       sortZones('convTable', true, istDateObj);
@@ -803,6 +1004,7 @@
         keys.forEach(k => clearTimeDisplay(k, '--'));
         return;
       }
+      // NOTE: keeping same behavior pattern you already had (IST-style parsing)
       const istDateObj = buildDateFromISTInput(val);
       if (!istDateObj || isNaN(istDateObj.getTime())) {
         keys.forEach(k => clearTimeDisplay(k, 'Invalid Date'));
@@ -831,6 +1033,9 @@
       Object.keys(convMap).forEach(id => {
         setTimeWithTone(id, istDateObj, convMap[id]);
       });
+
+      const estBig = document.getElementById('convertedEST');
+      if (estBig) applyBusinessClassFromElement(estBig, istDateObj, 'America/New_York');
 
       // auto-sort converted table ascending by the converted local times for that IST instant
       sortZones('convTable', true, istDateObj);
