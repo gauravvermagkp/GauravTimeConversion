@@ -164,9 +164,9 @@ input[type="datetime-local"]:focus {
 }
 
 .zone-value.time-am {
-    background: beige;
+    background: white;
     /* bright soft yellow */
-    color: yellowgreen;
+    color: orange;
     padding: 4px 10px;
     border-radius: 999px;
     display: inline-block;
