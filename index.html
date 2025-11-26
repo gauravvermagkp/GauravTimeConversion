@@ -29,6 +29,20 @@
       </div>
     </div>
 
+    <div class="biz-guide">
+      <span class="biz-label">Business hours (local)</span>
+      <div class="biz-legends">
+        <span class="biz-pill biz-core">
+          <span class="biz-dot biz-dot-core"></span>
+          Core 09:00–18:00
+        </span>
+        <span class="biz-pill biz-off">
+          <span class="biz-dot biz-dot-off"></span>
+          Off 18:00–09:00
+        </span>
+      </div>
+    </div>
+
     <div class="card">
       <h3>Live Time</h3>
       <button type="button" class="collapse-btn" onclick="toggleSection('liveSectionBody', this)">−</button>
@@ -49,10 +63,10 @@
               <div>
                 <label class="label">Apply Sorting:</label>
                 <div>
-                  <button class="sort-btn" data-target="liveTable" data-dir="asc"
-                    onclick="sortZones('liveTable', true)">Ascending</button>
-                  <button class="sort-btn" data-target="liveTable" data-dir="desc"
-                    onclick="sortZones('liveTable', false)">Descending</button>
+                  <button class="sort-btn sort-arrow" data-target="liveTable" data-dir="asc"
+                    onclick="sortZones('liveTable', true)">▲</button>
+                  <button class="sort-btn sort-arrow" data-target="liveTable" data-dir="desc"
+                    onclick="sortZones('liveTable', false)">▼</button>
                 </div>
               </div>
             </div>
@@ -197,19 +211,7 @@
           </div>
         </div>
 
-        <div class="biz-guide">
-          <span class="biz-label">Business hours (local)</span>
-          <div class="biz-legends">
-            <span class="biz-pill biz-core">
-              <span class="biz-dot biz-dot-core"></span>
-              Core 09:00–18:00
-            </span>
-            <span class="biz-pill biz-off">
-              <span class="biz-dot biz-dot-off"></span>
-              Off 18:00–09:00
-            </span>
-          </div>
-        </div>
+
       </div>
 
     </div>
@@ -247,11 +249,11 @@
             <div>
               <label class="label">Apply Sorting:</label>
               <div>
-                <button class="sort-btn" data-target="convTable" data-dir="asc"
-                  onclick="sortZones('convTable', true)">Ascending</button>
+                <button class="sort-btn sort-arrow" data-target="convTable" data-dir="asc"
+                  onclick="sortZones('convTable', true)">▲</button>
 
-                <button class="sort-btn" data-target="convTable" data-dir="desc"
-                  onclick="sortZones('convTable', false)">Descending</button>
+                <button class="sort-btn sort-arrow" data-target="convTable" data-dir="desc"
+                  onclick="sortZones('convTable', false)">▼</button>
 
               </div>
             </div>
