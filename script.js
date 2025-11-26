@@ -70,16 +70,20 @@ document.querySelectorAll('input[name="prefLocal"]').forEach(radio => {
         preferredBase = e.target.value; // "IST" or "EST"
         applyPreferredBase();
         updateConvertHeader();
-
         // recompute live diffs
         updateLiveClock();
-
         // recompute converted section based on whichever input currently has a value
+        const keys = ['convertedEST', 'convertedSYD', 'convertedIST', 'convertedBER',
+            'convertedAFR', 'convertedBRA', 'convertedCAN', 'convertedFRA', 'convertedDEU',
+            'convertedJPN', 'convertedMEX', 'convertedNLD', 'convertedPOL', 'convertedESP', 'convertedCHE', 'convertedTHA'];
+        keys.forEach(k => clearTimeDisplay(k, '--'));
+        clearConvertedDiffs(keys);
         if (istInput && istInput.value) {
             convertFromIST();
         } else if (estInput && estInput.value) {
             convertFromEST();
         }
+
     });
 });
 
@@ -490,7 +494,7 @@ function convertFromEST() {
         const diffIst = document.getElementById("diff-ist-" + id);
         const diffUTC = document.getElementById("diff-utc-" + id);
 
-        if (diffIst) diffIst.innerText = timeDiffLabelIST(convMap[id]);
+        if (diffIst) diffIst.innerText = timeDiffLabelEST(convMap[id]);
         if (diffUTC) diffUTC.innerText = timeDiffLabelUTC(convMap[id]);
     });
 
