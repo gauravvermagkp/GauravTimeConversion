@@ -1,6 +1,7 @@
 // small safety: ensure elements exist before attaching listeners
 const istInput = document.getElementById('istInput');
 const estInput = document.getElementById('estInput');
+let preferredBase = 'IST'; // or 'EST'
 
 if (istInput && estInput) {
     istInput.addEventListener('input', () => {
@@ -32,6 +33,59 @@ if (diffToggle) {
         }
     });
 }
+
+function applyPreferredBase() {
+    const istBlock = document.getElementById('istInputBlock');
+    const estBlock = document.getElementById('estInputBlock');
+    if (!istBlock || !estBlock) return;
+
+    if (preferredBase === 'IST') {
+        istBlock.style.display = '';
+        estBlock.style.display = 'none';
+
+        if (typeof estInput !== 'undefined' && estInput) {
+            estInput.value = '';
+            estInput.disabled = true;
+        }
+        if (typeof istInput !== 'undefined' && istInput) {
+            istInput.disabled = false;
+        }
+    } else {
+        istBlock.style.display = 'none';
+        estBlock.style.display = '';
+
+        if (typeof istInput !== 'undefined' && istInput) {
+            istInput.value = '';
+            istInput.disabled = true;
+        }
+        if (typeof estInput !== 'undefined' && estInput) {
+            estInput.disabled = false;
+        }
+    }
+}
+
+// listen to radio changes
+document.querySelectorAll('input[name="prefLocal"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+        preferredBase = e.target.value; // "IST" or "EST"
+        applyPreferredBase();
+        updateConvertHeader();
+
+        // recompute live diffs
+        updateLiveClock();
+
+        // recompute converted section based on whichever input currently has a value
+        if (istInput && istInput.value) {
+            convertFromIST();
+        } else if (estInput && estInput.value) {
+            convertFromEST();
+        }
+    });
+});
+
+// initial state
+applyPreferredBase();
+
 
 // Groups mapping
 const GROUPS = {
@@ -109,6 +163,29 @@ function timeDiffLabelUTC(tz) {
     const directiongmt = diffMinutesgmt > 0 ? "ahead of UTC" : "behind UTC";
     return `${hPartgmt}${sepgmt}${mPartgmt} ${directiongmt}`.trim();
 }
+
+function timeDiffLabelEST(tz) {
+    const now = new Date();
+    const offsetest = getOffsetMinutes(now, "America/New_York");
+    const offsetOther = getOffsetMinutes(now, tz);
+
+    const diffMinutesest = offsetOther - offsetest;   // other - EST
+    if (diffMinutesest === 0) return "(same as EST)";
+    const absMinest = Math.abs(diffMinutesest);
+    const hoursest = Math.floor(absMinest / 60);
+    const minsest = absMinest % 60;
+    const hPartest = hoursest > 0 ? `${hoursest}h` : "";
+    const mPartest = minsest > 0 ? `${minsest}m` : "";
+    const sepest = hPartest && mPartest ? " " : "";
+    const directionest = diffMinutesest > 0 ? "ahead of EST" : "behind EST";
+    return `${hPartest}${sepest}${mPartest} ${directionest}`.trim();
+}
+
+// Use IST or EST based on preferredBase ("IST" or "EST")
+function timeDiffLabelBase(tz) {
+    return preferredBase === 'EST' ? timeDiffLabelEST(tz) : timeDiffLabelIST(tz);
+}
+
 
 // Formatter to DD/MM/YYYY hh:mm:ss am/pm in given timezone
 function fmtForZone(dateObj, timeZone) {
@@ -294,7 +371,7 @@ function updateLiveClock() {
         const diffIst = document.getElementById("diff-ist-" + id);
         const diffUTC = document.getElementById("diff-utc-" + id);
 
-        if (diffIst) diffIst.innerText = timeDiffLabelIST(map[id]);
+        if (diffIst) diffIst.innerText = timeDiffLabelBase(map[id]);
         if (diffUTC) diffUTC.innerText = timeDiffLabelUTC(map[id]);
     });
 
@@ -358,7 +435,7 @@ function convertFromIST() {
         const diffIst = document.getElementById("diff-ist-" + id);
         const diffUTC = document.getElementById("diff-utc-" + id);
 
-        if (diffIst) diffIst.innerText = timeDiffLabelIST(convMap[id]);
+        if (diffIst) diffIst.innerText = timeDiffLabelBase(convMap[id]);
         if (diffUTC) diffUTC.innerText = timeDiffLabelUTC(convMap[id]);
     });
 
@@ -438,6 +515,27 @@ function applyGroupConv() {
     document.querySelectorAll('#convTable .zone-row').forEach(el => {
         el.style.display = allowed.includes(el.getAttribute('data-zone') || 'all') ? '' : 'none';
     });
+}
+
+
+function updateConvertHeader() {
+    const header = document.getElementById('convertHeader');
+    if (!header) return;
+    header.innerText = preferredBase === 'EST'
+        ? 'Convert EST → Other Zones'
+        : 'Convert IST → Other Zones';
+}
+
+function toggleSection(bodyId, btn) {
+    const body = document.getElementById(bodyId);
+    if (!body) return;
+
+    const isHidden = body.style.display === 'none';
+    body.style.display = isHidden ? '' : 'none';
+
+    if (btn) {
+        btn.textContent = isHidden ? '−' : '+';
+    }
 }
 
 // initialize
